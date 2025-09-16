@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tipControl.addTarget(self, action: "calculate:", forControlEvents: .ValueChanged)
     }
 
     override func didReceiveMemoryWarning() {
