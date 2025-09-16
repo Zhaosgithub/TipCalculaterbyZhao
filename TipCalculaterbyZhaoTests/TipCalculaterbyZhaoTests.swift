@@ -21,9 +21,27 @@ class TipCalculaterbyZhaoTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testTipControlHasTarget() {
+        let viewController = ViewController()
+
+        let tipControl = UISegmentedControl(items: ["18%", "20%", "25%"])
+        // We need to have a dummy billField, otherwise the app will crash when trying to read `billField.text!`
+        let billField = UITextField()
+        viewController.tipControl = tipControl
+        viewController.billField = billField
+
+        // We need to instantiate the labels as well, otherwise the app will crash
+        viewController.tipLabel = UILabel()
+        viewController.totalLabel = UILabel()
+
+
+        viewController.viewDidLoad()
+
+        let actions = viewController.tipControl.actionsForTarget(viewController, forControlEvent: .ValueChanged)
+        XCTAssertNotNil(actions)
+        if let actions = actions {
+            XCTAssertTrue(actions.contains("calculate:"))
+        }
     }
     
     func testPerformanceExample() {
